@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Checking out the code from the repository...22'
+                echo 'Checking out the code from the repository...'
                 // Add your SCM checkout command here, e.g., git 'https://github.com/your-org/your-repo.git'
             }
         }
