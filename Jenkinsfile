@@ -1,33 +1,38 @@
 pipeline {
     agent any
+    parameters {
+        choice(
+            name: 'ENVIRONMENT',
+            choices: ['dev', 'qa', 'prod'],
+            description: 'Select the environment'
+        )
+    }
 
     stages {
         stage('Checkout') {
             steps {
-                echo 'Checking out the code from the repository...'
-                // Add your SCM checkout command here, e.g., git 'https://github.com/your-org/your-repo.git'
+                git url: 'https://github.com/AshishTade/test_dev.git', branch: 'main'
             }
-        }
-
-        stage('Build') {
-            steps {
-                echo 'Building the application...'
-                // Add your build commands here, e.g., 'mvn clean package' or 'npm install'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-                // Add your test commands here, e.g., 'mvn test' or 'npm test'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying the application...'
-                // Add your deployment commands here, e.g., a script to push to a server or a container registry
-            }
-        }
+        }       
     }
+
+    stage('Deploy') {
+            steps {
+                script {
+                    echo "Selected environment: ${params.ENVIRONMENT}"
+
+                    if (params.ENVIRONMENT == 'dev') {
+                        echo 'Executing DEV deployment...'
+                        // sh './deploy_dev.sh'
+                    } else if (params.ENVIRONMENT == 'qa') {
+                        echo 'Executing QA deployment...'
+                        // sh './deploy_qa.sh'
+                    }
+                    else if (params.ENVIRONMENT == 'prod') {
+                        echo 'Executing PROD deployment...'
+                        // sh './deploy_prod.sh'
+                    }
+                }
+            }
+        }
 }
