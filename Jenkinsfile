@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    
     parameters {
         choice(
             name: 'ENVIRONMENT',
@@ -7,14 +8,12 @@ pipeline {
             description: 'Select the environment'
         )
     }
-
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/AshishTade/test_dev.git', branch: 'main'
+               git url: 'https://github.com/AshishTade/test_dev.git', branch: 'main'
             }
-        }       
-    }
+        }
 
     stage('Deploy') {
             steps {
@@ -35,4 +34,5 @@ pipeline {
                 }
             }
         }
+    }
 }
