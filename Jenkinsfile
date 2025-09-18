@@ -2,27 +2,25 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('Checkout') {
             steps {
-                echo "Hello from branch: ${env.BRANCH_NAME}"
+                echo 'Cloning repository...'
+                checkout scm
             }
         }
 
         stage('Build') {
             steps {
-                echo "Building the project on branch: ${env.BRANCH_NAME}"
+                echo 'Building the project...'
+                // Example: compile or build step
+                // sh 'javac Main.java'
             }
         }
 
         stage('Test') {
             steps {
-                echo "Running tests..."
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo "Deploying application..."
+                echo 'Running tests...'
+                // Exam
             }
         }
     }
