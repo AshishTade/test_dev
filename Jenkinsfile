@@ -1,48 +1,29 @@
 pipeline {
     agent any
-    triggers {
-        githubPush()
-    }
+
     stages {
-        stage('Checkout') {
+        stage('Hello') {
             steps {
-                git branch: 'main', url: 'https://github.com/AshishTade/test_dev.git'
+                echo "Hello from branch: ${env.BRANCH_NAME}"
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Building the application...'
-                // Example build commandjj
-              // sh 'npm install'
+                echo "Building the project on branch: ${env.BRANCH_NAME}"
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Running tests...'
-                // Example test command
+                echo "Running tests..."
             }
         }
+
         stage('Deploy') {
             steps {
-                echo 'Deploying to $DEPLOY_PATH ...'
-                // Sample deployment (replace with your actual command)
-                // sh """
-                // mkdir -p $DEPLOY_PATH
-                // cp -r * $DEPLOY_PATH/
-               // echo 'Deployed at: ' $(date)
-               // """
+                echo "Deploying application..."
             }
-        }
-    }
-
-    post {
-        success {
-            echo '✅ Build and Deployment successful.'
-        }
-    failure {
-            echo '❌ Build or Deployment failed.'
         }
     }
 }
